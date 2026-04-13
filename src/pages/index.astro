@@ -32,7 +32,7 @@ const site = siteData[0]?.data;
             tags={project.data.tags}
             image={asset(project.data.images[0] || '/images/placeholder.jpg')}
             href={asset(`/projects/${project.id}`)}
-            size="full"
+            size="half"
           />
         ))}
       </div>
@@ -72,13 +72,19 @@ const site = siteData[0]?.data;
   }
 
   .featured-projects {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-xl) 0;
   }
 
   .featured-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 767px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .featured-cta {

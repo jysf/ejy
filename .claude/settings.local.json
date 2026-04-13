@@ -34,7 +34,8 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(git push:*)",
       "Bash(rm /Users/jyashinsky/claudia/web/ejy/.git/index.lock)",
-      "Bash(gh run:*)"
+      "Bash(gh run:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:4321/ejy/images/anni-albers/68268165e9238aba58bc677e_Type-1@3x-min.jpg\")"
     ]
   }
 }

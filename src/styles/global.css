@@ -150,7 +150,7 @@ p {
    Links
    ======================================== */
 .email-link {
-  color: var(--deep-charcoal);
+  color: var(--midnight-blue);
   font-weight: 600;
   transition: color var(--transition-fast);
 }
