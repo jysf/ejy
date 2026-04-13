@@ -1,7 +1,8 @@
 site_url: https://ejy0.netlify.app
 local_backend: true
 backend:
-  name: git-gateway
+  name: github
+  repo: jysf/ejy
   branch: main
 
 media_folder: public/images
