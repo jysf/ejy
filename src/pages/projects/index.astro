@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .filter((p) => p.id !== 'the-triangle')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const triangle = allProjects.find((p) => p.id === 'the-triangle');
+---
+
+<BaseLayout title="Projects — Emma Yashinsky" description="Graphic design projects by Emma Yashinsky.">
+  <section class="projects-page">
+    <div class="container-wide">
+      <h1 class="section-heading">Recent Work</h1>
+
+      <div class="projects-grid">
+        {projects.map((project, i) => {
+          /* Layout pattern from Webflow: full, 2-col, full, 2-col, full */
+          const pattern = [1, 2, 1, 2, 1, 2, 1]; // widths per row slot
+          const size = pattern[i % pattern.length] === 1 ? 'full' as const : 'half' as const;
+          return (
+            <div class:list={["grid-item", `grid-item--${size}`]}>
+              <ProjectCard
+                title={project.data.title}
+                date={project.data.date}
+                tags={project.data.tags}
+                image={project.data.images[0] || '/images/placeholder.jpg'}
+                href={`/projects/${project.id}`}
+                size={size}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  {triangle && (
+    <section class="triangle-section">
+      <a href="/the-triangle" class="triangle-card reveal">
+        <div class="triangle-info">
+          <h1>The Triangle</h1>
+          <p class="triangle-description">{triangle.data.description}</p>
+        </div>
+        <div class="triangle-image">
+          {triangle.data.images[0] && (
+            <img src={triangle.data.images[0]} alt="The Triangle" loading="lazy" />
+          )}
+        </div>
+      </a>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .projects-page {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-xl);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .grid-item--full {
+    grid-column: 1 / -1;
+  }
+
+  .triangle-section {
+    padding: var(--space-xl) 0;
+  }
+
+  .triangle-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+    transition: color var(--transition-fast);
+  }
+
+  .triangle-card:hover {
+    color: var(--burnt-orange);
+  }
+
+  .triangle-info h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .triangle-description {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .triangle-image img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .grid-item--half {
+      grid-column: auto;
+    }
+
+    .triangle-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

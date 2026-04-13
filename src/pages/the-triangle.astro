@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const triangle = allProjects.find((p) => p.id === 'the-triangle');
+const images = triangle?.data.images || [];
+---
+
+<BaseLayout title="The Triangle — Emma Yashinsky" description="Design work for The Triangle, Drexel University's independent student newspaper.">
+  <section class="triangle-hero">
+    <div class="container">
+      <div class="triangle-hero-grid">
+        {images[0] && (
+          <div class="triangle-hero-image">
+            <img src={images[0]} alt="The Triangle" />
+          </div>
+        )}
+        <div class="triangle-hero-content">
+          <h1>The Triangle</h1>
+          <p class="triangle-description">{triangle?.data.description}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {images.length > 1 && (
+    <section class="triangle-gallery">
+      <div class="container-wide">
+        {/* Display images in pairs */}
+        {Array.from({ length: Math.ceil((images.length - 1) / 2) }).map((_, i) => {
+          const img1 = images[1 + i * 2];
+          const img2 = images[2 + i * 2];
+          return (
+            <div class="image-pair reveal">
+              {img1 && <div class="pair-item"><img src={img1} alt="The Triangle" loading="lazy" /></div>}
+              {img2 && <div class="pair-item"><img src={img2} alt="The Triangle" loading="lazy" /></div>}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .triangle-hero {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+  }
+
+  .triangle-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .triangle-hero-image img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  .triangle-hero-content h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .triangle-description {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .triangle-gallery {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .image-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .pair-item img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .triangle-hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .image-pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

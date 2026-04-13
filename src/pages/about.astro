@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection, render } from 'astro:content';
+
+const aboutData = await getCollection('about');
+const about = aboutData[0];
+const { Content } = await render(about);
+
+const siteData = await getCollection('site');
+const site = siteData[0]?.data;
+
+const allProjects = await getCollection('projects');
+const recentProjects = allProjects
+  .filter((p) => p.id !== 'the-triangle')
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<BaseLayout title="About — Emma Yashinsky" description="Learn more about Emma Yashinsky, a graphic designer studying at Drexel University.">
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-grid">
+        {about.data.image && (
+          <div class="about-image">
+            <img src={about.data.image} alt="Emma Yashinsky" />
+          </div>
+        )}
+        <div class="about-content">
+          <h1 class="about-heading">{about.data.heading}</h1>
+          <div class="about-bio">
+            <Content />
+          </div>
+          <a class="resume-link" href={about.data.resumeUrl} target="_blank" rel="noopener">
+            View my resume here
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {site && (
+    <section class="about-contact">
+      <div class="container">
+        <h2>I would love to hear from you at:</h2>
+        <a class="email-link" href={`mailto:${site.email}`}>{site.email}</a>
+        <div class="about-social">
+          <a class="social-link" href={site.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="5"></circle>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle>
+            </svg>
+          </a>
+          <a class="social-link" href={site.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="recent-works">
+    <div class="container-wide">
+      <h1 class="section-heading">Recent Works</h1>
+      <div class="recent-grid">
+        {recentProjects.map((project, i) => (
+          <ProjectCard
+            title={project.data.title}
+            date={project.data.date}
+            tags={project.data.tags}
+            image={project.data.images[0] || '/images/placeholder.jpg'}
+            href={`/projects/${project.id}`}
+            size={i === 0 ? 'full' : 'half'}
+          />
+        ))}
+      </div>
+      <div class="works-cta">
+        <a href="/projects" class="button">View More Work</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .about-image img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  .about-heading {
+    margin-bottom: var(--space-md);
+  }
+
+  .about-bio {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .about-contact {
+    text-align: center;
+    padding: var(--space-xl) 0;
+  }
+
+  .about-contact h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .about-social {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .recent-works {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-xl);
+  }
+
+  .recent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .recent-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .works-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 767px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .recent-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

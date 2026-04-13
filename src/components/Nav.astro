@@ -1,0 +1,158 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <img src="/images/logo.png" alt="Emma Yashinsky" class="nav-logo" />
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+    <div class="nav-links">
+      <a href="/about" class:list={["nav-link", { active: currentPath.startsWith('/about') }]}>About Me</a>
+      <a href="/projects" class:list={["nav-link", { active: currentPath.startsWith('/projects') || currentPath.startsWith('/the-triangle') }]}>Projects</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  function initNav() {
+    const header = document.querySelector('.header') as HTMLElement;
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    if (!header || !toggle || !links) return;
+
+    // Hamburger toggle
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      links.classList.toggle('open');
+    });
+
+    // Hide/show nav on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+      if (current > lastScroll && current > 100) {
+        header.classList.add('nav-hidden');
+      } else {
+        header.classList.remove('nav-hidden');
+      }
+      lastScroll = current;
+    }, { passive: true });
+  }
+
+  initNav();
+  document.addEventListener('astro:after-swap', initNav);
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--white);
+    transition: transform var(--transition-slow);
+  }
+
+  .header.nav-hidden {
+    transform: translateY(-100%);
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    height: var(--nav-height);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo {
+    height: 40px;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--deep-charcoal);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--burnt-orange);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--deep-charcoal);
+    transition: transform var(--transition-medium);
+  }
+
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  @media (max-width: 767px) {
+    .nav-toggle {
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: var(--space-md);
+      gap: var(--space-md);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+  }
+</style>

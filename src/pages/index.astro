@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroName from '../components/HeroName.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const featured = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const siteData = await getCollection('site');
+const site = siteData[0]?.data;
+---
+
+<BaseLayout title="Emma Yashinsky — Graphic Designer">
+  <HeroName />
+
+  <section class="featured-projects">
+    <div class="container-wide">
+      <div class="featured-grid">
+        {featured.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            date={project.data.date}
+            tags={project.data.tags}
+            image={project.data.images[0] || '/images/placeholder.jpg'}
+            href={`/projects/${project.id}`}
+            size="full"
+          />
+        ))}
+      </div>
+      <div class="featured-cta">
+        <a href="/projects" class="button">View more work</a>
+      </div>
+    </div>
+  </section>
+
+  {site && (
+    <section class="tagline-section">
+      <div class="container">
+        <div class="tagline-content reveal">
+          <h1 class="tagline">{site.tagline}</h1>
+          <a href="/about" class="button">Learn more about me</a>
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .featured-projects {
+    padding: var(--space-2xl) 0;
+  }
+
+  .featured-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .featured-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  .tagline-section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .tagline-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .tagline {
+    max-width: 600px;
+  }
+</style>

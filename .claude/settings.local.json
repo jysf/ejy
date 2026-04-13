@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.emmayashinsky.com)",
+      "WebFetch(domain:assets.website-files.com)",
+      "WebFetch(domain:cdn.prod.website-files.com)",
+      "WebFetch(domain:)",
+      "Bash(curl -s -L 'https://www.emmayashinsky.com')",
+      "Bash(curl -s -L 'https://cdn.prod.website-files.com/67ec70f1df0bc7352b69df60/css/emmayashinsky.webflow.shared.3a5df4c0b.css')",
+      "Bash(curl -s -L 'https://www.emmayashinsky.com/projects')",
+      "Bash(curl -s -L 'https://cdn.prod.website-files.com/67ec70f1df0bc7352b69df60/js/webflow.cb6f9f4d.a5525b5336959863.js')",
+      "Bash(curl -s -L 'https://www.emmayashinsky.com/about-me')",
+      "Read(//tmp/**)",
+      "Bash(curl -s -L 'https://www.emmayashinsky.com/project-details-relache')",
+      "Bash(python3)",
+      "Bash(npm create:*)",
+      "Bash(npx create-astro@latest /tmp/ejy-astro-scaffold -- --template minimal --no-install --no-git --typescript strict)",
+      "Bash(cp -n /tmp/ejy-astro-scaffold/.gitignore /Users/jyashinsky/claudia/web/ejy/)",
+      "Bash(cp -rn /tmp/ejy-astro-scaffold/.vscode /Users/jyashinsky/claudia/web/ejy/)",
+      "Bash(cp -n /tmp/ejy-astro-scaffold/astro.config.mjs /Users/jyashinsky/claudia/web/ejy/)",
+      "Bash(cp -n /tmp/ejy-astro-scaffold/package.json /Users/jyashinsky/claudia/web/ejy/)",
+      "Bash(cp -n /tmp/ejy-astro-scaffold/tsconfig.json /Users/jyashinsky/claudia/web/ejy/)",
+      "Bash(npm install:*)",
+      "Bash(npx playwright:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)"
+    ]
+  }
+}

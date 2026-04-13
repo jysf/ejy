@@ -1,0 +1,71 @@
+<section class="hero-name-section">
+  <div class="hero-name-container">
+    <h3 class="hero-name first-name">Emma</h3>
+    <h3 class="hero-name last-name">Yashinsky</h3>
+  </div>
+</section>
+
+<script>
+  function initHeroAnimation() {
+    const section = document.querySelector('.hero-name-section');
+    if (!section || window.innerWidth < 768) return;
+
+    const firstName = section.querySelector('.first-name') as HTMLElement;
+    const lastName = section.querySelector('.last-name') as HTMLElement;
+    if (!firstName || !lastName) return;
+
+    function onScroll() {
+      const rect = section!.getBoundingClientRect();
+      const sectionHeight = section!.clientHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const progress = Math.min(1, scrolled / (sectionHeight * 0.5));
+
+      const scale = 1 + progress * 0.5; // 1 -> 1.5
+      const eased = 1 - Math.pow(1 - progress, 2); // outQuad
+
+      firstName.style.transform = `scale(${scale}) translate(${eased * 31}vw, ${progress * 9}vw)`;
+      lastName.style.transform = `scale(${scale}) translate(${eased * -20}vw, ${progress * 23}vw)`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  initHeroAnimation();
+  document.addEventListener('astro:after-swap', initHeroAnimation);
+</script>
+
+<style>
+  .hero-name-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-md);
+    padding-top: calc(var(--nav-height) + var(--space-xl));
+    overflow: hidden;
+  }
+
+  .hero-name-container {
+    text-align: center;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 10vw, 120px);
+    line-height: 1.1;
+    color: var(--deep-charcoal);
+    will-change: transform;
+    transform-origin: center center;
+  }
+
+  @media (max-width: 767px) {
+    .hero-name-section {
+      min-height: 50vh;
+    }
+
+    .hero-name {
+      font-size: clamp(36px, 12vw, 64px);
+    }
+  }
+</style>

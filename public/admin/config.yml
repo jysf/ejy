@@ -1,0 +1,53 @@
+backend:
+  name: github
+  repo: jyashinsky/ejy
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: projects
+    label: Projects
+    folder: src/content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: string, hint: "e.g. Fall 2025, Winter 2025" }
+      - { label: Tags, name: tags, widget: list }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Order, name: order, widget: number, value_type: int }
+      - { label: Description, name: description, widget: text }
+      - label: Images
+        name: images
+        widget: list
+        field: { label: Image, name: image, widget: image }
+      - { label: Next Project Slug, name: nextProject, widget: string, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: about
+    label: About Page
+    files:
+      - label: About
+        name: index
+        file: src/content/about/index.md
+        fields:
+          - { label: Heading, name: heading, widget: string }
+          - { label: Resume URL, name: resumeUrl, widget: string }
+          - { label: Photo, name: image, widget: image, required: false }
+          - { label: Bio, name: body, widget: markdown }
+
+  - name: site
+    label: Site Settings
+    files:
+      - label: General
+        name: index
+        file: src/content/site/index.md
+        fields:
+          - { label: Tagline, name: tagline, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: Resume URL, name: resumeUrl, widget: string }
+          - { label: Instagram URL, name: instagram, widget: string }
+          - { label: LinkedIn URL, name: linkedin, widget: string }

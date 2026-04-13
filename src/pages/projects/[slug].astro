@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects
+    .filter((p) => p.id !== 'the-triangle')
+    .map((project) => ({
+      params: { slug: project.id },
+      props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { title, date, tags, description, images, nextProject } = project.data;
+
+const allProjects = await getCollection('projects');
+const next = nextProject
+  ? allProjects.find((p) => p.id === nextProject)
+  : null;
+---
+
+<BaseLayout title={`${title} — Emma Yashinsky`} description={description}>
+  <article class="project-detail">
+    <section class="project-hero">
+      {images[0] && (
+        <div class="hero-image">
+          <img src={images[0]} alt={title} />
+        </div>
+      )}
+      <div class="project-meta container">
+        <h3 class="project-title">{title}</h3>
+        <h4 class="project-date">{date}</h4>
+        <p class="project-tags">{tags.join(', ')}</p>
+        <p class="project-description">{description}</p>
+      </div>
+    </section>
+
+    {images.length > 1 && (
+      <section class="project-gallery container-wide">
+        {images.slice(1).map((img) => (
+          <div class="gallery-item reveal">
+            <img src={img} alt={title} loading="lazy" />
+          </div>
+        ))}
+      </section>
+    )}
+
+    <section class="project-nav container">
+      {next ? (
+        <a href={`/projects/${next.id}`} class="button">
+          View next project
+        </a>
+      ) : (
+        <a href="/projects" class="button">
+          View More Work
+        </a>
+      )}
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-detail {
+    padding-top: var(--nav-height);
+  }
+
+  .project-hero {
+    padding: var(--space-xl) 0;
+  }
+
+  .hero-image {
+    max-width: var(--container-wide);
+    margin: 0 auto var(--space-xl);
+    padding: 0 var(--space-md);
+  }
+
+  .hero-image img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  .project-meta {
+    max-width: 700px;
+  }
+
+  .project-title {
+    margin-bottom: 4px;
+  }
+
+  .project-date {
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .project-tags {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .project-description {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .project-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  .project-nav {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-md);
+  }
+</style>

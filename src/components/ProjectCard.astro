@@ -1,0 +1,74 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  tags: string[];
+  image: string;
+  href: string;
+  size?: 'full' | 'half';
+}
+
+const { title, date, tags, image, href, size = 'half' } = Astro.props;
+---
+
+<a href={href} class:list={["project-card", `project-card--${size}`, "reveal"]}>
+  <div class="project-card__image">
+    <img src={image} alt={title} loading="lazy" />
+  </div>
+  <div class="project-card__info">
+    <h3 class="project-card__title">{title}</h3>
+    <h4 class="project-card__date">{date}</h4>
+    <p class="project-card__tags">{tags.join(', ')}</p>
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    transition: color var(--transition-fast);
+  }
+
+  .project-card:hover .project-card__info {
+    color: var(--burnt-orange);
+  }
+
+  .project-card__image {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .project-card__image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+  }
+
+  .project-card:hover .project-card__image img {
+    transform: scale(1.02);
+  }
+
+  .project-card__info {
+    padding: var(--space-sm) 0;
+    color: var(--deep-charcoal);
+    transition: color var(--transition-fast);
+  }
+
+  .project-card__title {
+    margin-bottom: 4px;
+  }
+
+  .project-card__date {
+    margin-bottom: 4px;
+    font-weight: 300;
+  }
+
+  .project-card__tags {
+    font-size: 13px;
+    color: inherit;
+    opacity: 0.7;
+  }
+</style>
