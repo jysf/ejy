@@ -64,12 +64,15 @@ const site = siteData[0]?.data;
   .hero-image-top {
     padding-top: var(--nav-height);
     width: 100%;
+    max-height: 280px;
     overflow: hidden;
   }
 
   .hero-decorative {
     width: 100%;
-    height: auto;
+    height: 280px;
+    object-fit: cover;
+    object-position: center 40%;
     display: block;
   }
 
@@ -106,12 +109,14 @@ const site = siteData[0]?.data;
 
   .footer-image {
     width: 100%;
+    max-height: 250px;
     overflow: hidden;
   }
 
   .footer-decorative {
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: cover;
     display: block;
   }
 </style>

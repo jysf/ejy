@@ -30,7 +30,10 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/ejy/admin/index.html)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/ejy/admin/)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/admin/)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/admin/index.html)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/admin/index.html)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git push:*)",
+      "Bash(rm /Users/jyashinsky/claudia/web/ejy/.git/index.lock)"
     ]
   }
 }
