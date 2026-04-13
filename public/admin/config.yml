@@ -4,6 +4,7 @@ backend:
   name: github
   repo: jysf/ejy
   branch: main
+  base_url: https://ejy0.netlify.app
 
 media_folder: public/images
 public_folder: /images
