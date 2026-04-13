@@ -1,3 +1,8 @@
+---
+import { asset } from '../utils';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
 <footer class="footer">
   <div class="footer-inner container">
     <div class="footer-contact">
@@ -26,12 +31,12 @@
       </a>
     </div>
     <div class="footer-nav">
-      <a class="footer-link" href="/about">About Me</a>
-      <a class="footer-link" href="/projects">Projects</a>
+      <a class="footer-link" href={`${base}/about`}>About Me</a>
+      <a class="footer-link" href={`${base}/projects`}>Projects</a>
     </div>
     <div class="footer-logo">
-      <a href="/">
-        <img src="/images/logo.png" alt="Emma Yashinsky" />
+      <a href={`${base}/`}>
+        <img src={asset('/images/logo.png')} alt="Emma Yashinsky" />
       </a>
     </div>
   </div>

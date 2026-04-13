@@ -1,18 +1,20 @@
 ---
+import { asset } from '../utils';
 const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <header class="header">
   <nav class="navbar">
-    <a href="/" class="nav-brand">
-      <img src="/images/logo.png" alt="Emma Yashinsky" class="nav-logo" />
+    <a href={`${base}/`} class="nav-brand">
+      <img src={asset('/images/logo.png')} alt="Emma Yashinsky" class="nav-logo" />
     </a>
     <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <span class="hamburger"></span>
     </button>
     <div class="nav-links">
-      <a href="/about" class:list={["nav-link", { active: currentPath.startsWith('/about') }]}>About Me</a>
-      <a href="/projects" class:list={["nav-link", { active: currentPath.startsWith('/projects') || currentPath.startsWith('/the-triangle') }]}>Projects</a>
+      <a href={`${base}/about`} class:list={["nav-link", { active: currentPath.includes('/about') }]}>About Me</a>
+      <a href={`${base}/projects`} class:list={["nav-link", { active: currentPath.includes('/projects') || currentPath.includes('/the-triangle') }]}>Projects</a>
     </div>
   </nav>
 </header>

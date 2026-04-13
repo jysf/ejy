@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { asset } from '../../utils';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -26,7 +29,7 @@ const next = nextProject
     <section class="project-hero">
       {images[0] && (
         <div class="hero-image">
-          <img src={images[0]} alt={title} />
+          <img src={asset(images[0])} alt={title} />
         </div>
       )}
       <div class="project-meta container">
@@ -41,7 +44,7 @@ const next = nextProject
       <section class="project-gallery container-wide">
         {images.slice(1).map((img) => (
           <div class="gallery-item reveal">
-            <img src={img} alt={title} loading="lazy" />
+            <img src={asset(img)} alt={title} loading="lazy" />
           </div>
         ))}
       </section>
@@ -49,11 +52,11 @@ const next = nextProject
 
     <section class="project-nav container">
       {next ? (
-        <a href={`/projects/${next.id}`} class="button">
+        <a href={`${base}/projects/${next.id}`} class="button">
           View next project
         </a>
       ) : (
-        <a href="/projects" class="button">
+        <a href={`${base}/projects`} class="button">
           View More Work
         </a>
       )}

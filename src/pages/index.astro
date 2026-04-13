@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroName from '../components/HeroName.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import { asset } from '../utils';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const allProjects = await getCollection('projects');
 const featured = allProjects
@@ -25,14 +28,14 @@ const site = siteData[0]?.data;
             title={project.data.title}
             date={project.data.date}
             tags={project.data.tags}
-            image={project.data.images[0] || '/images/placeholder.jpg'}
-            href={`/projects/${project.id}`}
+            image={asset(project.data.images[0] || '/images/placeholder.jpg')}
+            href={`${base}/projects/${project.id}`}
             size="full"
           />
         ))}
       </div>
       <div class="featured-cta">
-        <a href="/projects" class="button">View more work</a>
+        <a href={`${base}/projects`} class="button">View more work</a>
       </div>
     </div>
   </section>
@@ -42,7 +45,7 @@ const site = siteData[0]?.data;
       <div class="container">
         <div class="tagline-content reveal">
           <h1 class="tagline">{site.tagline}</h1>
-          <a href="/about" class="button">Learn more about me</a>
+          <a href={`${base}/about`} class="button">Learn more about me</a>
         </div>
       </div>
     </section>
