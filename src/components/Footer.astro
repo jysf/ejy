@@ -2,6 +2,11 @@
 ---
 
 <footer class="footer">
+  <img
+    class="footer-bg"
+    src="/images/home/682692c62477dd1a46c296e5_Footer_403x-min.jpg"
+    alt=""
+  />
   <div class="footer-inner container">
     <div class="footer-contact">
       <a class="email-link" href="mailto:emma.yashinsky@gmail.com">emma.yashinsky@gmail.com</a>
@@ -42,22 +47,34 @@
 
 <style>
   .footer {
-    padding: var(--space-2xl) 0 var(--space-xl);
+    position: relative;
     margin-top: var(--space-2xl);
+    min-height: 400px;
+  }
+
+  .footer-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 0;
   }
 
   .footer-inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-md);
-    text-align: center;
+    padding: var(--space-2xl) var(--space-md);
   }
 
   .footer-contact {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: var(--space-xs);
   }
 
@@ -69,7 +86,8 @@
 
   .footer-nav {
     display: flex;
-    gap: var(--space-lg);
+    flex-direction: column;
+    gap: var(--space-sm);
   }
 
   .footer-link {
