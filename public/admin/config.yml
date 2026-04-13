@@ -1,6 +1,8 @@
+site_url: https://jysf.github.io/ejy
+local_backend: true
 backend:
   name: github
-  repo: jyashinsky/ejy
+  repo: jysf/ejy
   branch: main
 
 media_folder: public/images

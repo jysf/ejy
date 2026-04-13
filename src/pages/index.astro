@@ -18,6 +18,10 @@ const site = siteData[0]?.data;
 ---
 
 <BaseLayout title="Emma Yashinsky — Graphic Designer">
+  <section class="hero-image-top">
+    <img src={asset('/images/home/6839dc9bb9ef2a42b343a192_IMG_0319-min.jpg')} alt="" class="hero-decorative" />
+  </section>
+
   <HeroName />
 
   <section class="featured-projects">
@@ -50,9 +54,25 @@ const site = siteData[0]?.data;
       </div>
     </section>
   )}
+
+  <section class="footer-image">
+    <img src={asset('/images/home/682692c62477dd1a46c296e5_Footer_403x-min.jpg')} alt="" class="footer-decorative" />
+  </section>
 </BaseLayout>
 
 <style>
+  .hero-image-top {
+    padding-top: var(--nav-height);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-decorative {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
   .featured-projects {
     padding: var(--space-2xl) 0;
   }
@@ -82,5 +102,16 @@ const site = siteData[0]?.data;
 
   .tagline {
     max-width: 600px;
+  }
+
+  .footer-image {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .footer-decorative {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 </style>

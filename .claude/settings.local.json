@@ -26,7 +26,11 @@
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
       "Bash(npm run:*)",
-      "Bash(npx astro:*)"
+      "Bash(npx astro:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/ejy/admin/index.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/ejy/admin/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/admin/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/admin/index.html)"
     ]
   }
 }
