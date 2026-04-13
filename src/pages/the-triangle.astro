@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { asset } from '../utils';
-
 const allProjects = await getCollection('projects');
 const triangle = allProjects.find((p) => p.id === 'the-triangle');
 const images = triangle?.data.images || [];
@@ -14,7 +12,7 @@ const images = triangle?.data.images || [];
       <div class="triangle-hero-grid">
         {images[0] && (
           <div class="triangle-hero-image">
-            <img src={asset(images[0])} alt="The Triangle" />
+            <img src={images[0]} alt="The Triangle" />
           </div>
         )}
         <div class="triangle-hero-content">
@@ -34,8 +32,8 @@ const images = triangle?.data.images || [];
           const img2 = images[2 + i * 2];
           return (
             <div class="image-pair reveal">
-              {img1 && <div class="pair-item"><img src={asset(img1)} alt="The Triangle" loading="lazy" /></div>}
-              {img2 && <div class="pair-item"><img src={asset(img2)} alt="The Triangle" loading="lazy" /></div>}
+              {img1 && <div class="pair-item"><img src={img1} alt="The Triangle" loading="lazy" /></div>}
+              {img2 && <div class="pair-item"><img src={img2} alt="The Triangle" loading="lazy" /></div>}
             </div>
           );
         })}

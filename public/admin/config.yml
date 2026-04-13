@@ -1,10 +1,8 @@
-site_url: https://jysf.github.io/ejy
+site_url: https://ejy0.netlify.app
 local_backend: true
 backend:
-  name: github
-  repo: jysf/ejy
+  name: git-gateway
   branch: main
-  base_url: https://steady-dragon-6b5590.netlify.app
 
 media_folder: public/images
 public_folder: /images

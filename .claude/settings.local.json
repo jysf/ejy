@@ -33,7 +33,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/admin/index.html)",
       "mcp__Claude_Preview__preview_start",
       "Bash(git push:*)",
-      "Bash(rm /Users/jyashinsky/claudia/web/ejy/.git/index.lock)"
+      "Bash(rm /Users/jyashinsky/claudia/web/ejy/.git/index.lock)",
+      "Bash(gh run:*)"
     ]
   }
 }
