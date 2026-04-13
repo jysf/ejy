@@ -1,4 +1,4 @@
-site_url: https://ejy0.netlify.app
+site_url: https://jysf.github.io/ejy
 local_backend: true
 backend:
   name: github

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import { asset } from '../../utils';
 
 const allProjects = await getCollection('projects');
 const projects = allProjects
@@ -27,8 +28,8 @@ const triangle = allProjects.find((p) => p.id === 'the-triangle');
                 title={project.data.title}
                 date={project.data.date}
                 tags={project.data.tags}
-                image={project.data.images[0] || '/images/placeholder.jpg'}
-                href={`/projects/${project.id}`}
+                image={asset(project.data.images[0] || '/images/placeholder.jpg')}
+                href={asset(`/projects/${project.id}`)}
                 size={size}
               />
             </div>
@@ -40,14 +41,14 @@ const triangle = allProjects.find((p) => p.id === 'the-triangle');
 
   {triangle && (
     <section class="triangle-section">
-      <a href="/the-triangle" class="triangle-card reveal">
+      <a href={asset('/the-triangle')} class="triangle-card reveal">
         <div class="triangle-info">
           <h1>The Triangle</h1>
           <p class="triangle-description">{triangle.data.description}</p>
         </div>
         <div class="triangle-image">
           {triangle.data.images[0] && (
-            <img src={triangle.data.images[0]} alt="The Triangle" loading="lazy" />
+            <img src={asset(triangle.data.images[0])} alt="The Triangle" loading="lazy" />
           )}
         </div>
       </a>

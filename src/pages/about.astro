@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection, render } from 'astro:content';
+import { asset } from '../utils';
 
 const aboutData = await getCollection('about');
 const about = aboutData[0];
@@ -23,7 +24,7 @@ const recentProjects = allProjects
       <div class="about-grid">
         {about.data.image && (
           <div class="about-image">
-            <img src={about.data.image} alt="Emma Yashinsky" />
+            <img src={asset(about.data.image)} alt="Emma Yashinsky" />
           </div>
         )}
         <div class="about-content">
@@ -73,14 +74,14 @@ const recentProjects = allProjects
             title={project.data.title}
             date={project.data.date}
             tags={project.data.tags}
-            image={project.data.images[0] || '/images/placeholder.jpg'}
-            href={`/projects/${project.id}`}
+            image={asset(project.data.images[0] || '/images/placeholder.jpg')}
+            href={asset(`/projects/${project.id}`)}
             size={i === 0 ? 'full' : 'half'}
           />
         ))}
       </div>
       <div class="works-cta">
-        <a href="/projects" class="button">View More Work</a>
+        <a href={asset('/projects')} class="button">View More Work</a>
       </div>
     </div>
   </section>

@@ -1,10 +1,11 @@
 ---
+import { asset } from '../utils';
 ---
 
 <footer class="footer">
   <img
     class="footer-bg"
-    src="/images/home/682692c62477dd1a46c296e5_Footer_403x-min.jpg"
+    src={asset('/images/home/682692c62477dd1a46c296e5_Footer_403x-min.jpg')}
     alt=""
   />
   <div class="footer-inner container">
@@ -34,12 +35,12 @@
       </a>
     </div>
     <div class="footer-nav">
-      <a class="footer-link" href="/about">About Me</a>
-      <a class="footer-link" href="/projects">Projects</a>
+      <a class="footer-link" href={asset('/about')}>About Me</a>
+      <a class="footer-link" href={asset('/projects')}>Projects</a>
     </div>
     <div class="footer-logo">
-      <a href="/">
-        <img src="/images/logo.png" alt="Emma Yashinsky" />
+      <a href={asset('/')}>
+        <img src={asset('/images/logo.png')} alt="Emma Yashinsky" />
       </a>
     </div>
   </div>
